@@ -2,9 +2,9 @@
   "name": "verify-node-passport-js",
   "version": "0.0.0",
   "description": "An example SAML service provider using node JS, passport and the passport-saml strategy to interact with GOV.UK Verify",
-  "main": "index.js",
+  "main": "app/index.js",
   "scripts": {
-    "test": "standard && echo \"Error: no test specified\" && exit 1"
+    "test": "standard && mocha"
   },
   "keywords": [
     "identity",
@@ -19,6 +19,10 @@
     "passport-saml": "^0.15.0"
   },
   "devDependencies": {
+    "mocha": "^3.3.0",
     "standard": "^10.0.2"
+  },
+  "standard": {
+    "globals": ["describe", "it"]
   }
 }
