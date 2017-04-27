@@ -1,5 +1,5 @@
-const express      = require('express')
-const passport     = require('passport')
+const express = require('express')
+const passport = require('passport')
 const { Strategy } = require('passport-saml')
 
 const samlConfig = {
@@ -17,10 +17,10 @@ passport.use(
 )
 const samlMiddleware = passport.authenticate(
   'saml',
-  { failureRedirect: '/', failureFlash: true}
+  { failureRedirect: '/', failureFlash: true }
 )
 
 express()
   .get('/', (req, res) => { res.send('Hello World!') })
-  .get('/secure', samlMiddleware,  (req, res) => res.send('Super secure!'))
+  .get('/secure', samlMiddleware, (req, res) => res.send('Super secure!'))
   .listen(3000, () => console.log('Listening on port 3000'))
