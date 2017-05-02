@@ -14,6 +14,7 @@
   "author": "Crown Copyright",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "passport": "^0.3.2",
     "passport-saml": "^0.15.0"
@@ -23,6 +24,9 @@
     "standard": "^10.0.2"
   },
   "standard": {
-    "globals": ["describe", "it"]
+    "globals": [
+      "describe",
+      "it"
+    ]
   }
 }

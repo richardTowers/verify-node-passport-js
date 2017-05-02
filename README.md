@@ -14,3 +14,4 @@ Problems Identified
 -------------------
 
 * It doesn't look like there's good (any?) support for reading SAML metadata from an IdP - verify mandates that metadata is polled every 10 minutes
+* Documentation doesn't mention you need to have bodyParser running for the POST response handler to work.

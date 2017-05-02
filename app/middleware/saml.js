@@ -1,10 +1,9 @@
 const passport = require('passport')
 const { Strategy } = require('passport-saml')
 
-function samlMiddleware () {
-  const entryPoint = 'https://compliance-tool-reference.ida.digital.cabinet-office.gov.uk/SAML2/SSO'
-  const issuer = 'https://verify-passport/service'
-  const cert = `MIICujCCAaICCQCfIsTbKZvPjTANBgkqhkiG9w0BAQsFADAfMR0wGwYDVQQDFBR0
+const entryPoint = 'http://localhost:50270/SAML2/SSO'
+const issuer = 'https://verify-passport/service'
+const cert = `MIICujCCAaICCQCfIsTbKZvPjTANBgkqhkiG9w0BAQsFADAfMR0wGwYDVQQDFBR0
 ZXN0X3ByaW1hcnlfc2lnbmluZzAeFw0xNzA0MjgxMDE5MDNaFw0xNzA1MjgxMDE5
 MDNaMB8xHTAbBgNVBAMUFHRlc3RfcHJpbWFyeV9zaWduaW5nMIIBIjANBgkqhkiG
 9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwJzklS49+k6RstAB86mJRykDMX8388WRIEbd
@@ -19,7 +18,7 @@ P3mbpTEZvaQddbbXQIavcy8+X8VoWhjjqL4Ww0auqV4ksLwO+bpDKtL6x3Q+G2EB
 s1cwva3ONfLxFxw/fSJ1etJITTL+PU+kzy/e0kuBrios5K/iVxYIbrw8lGhCRfPV
 9q4RvlQGYugWeWUlpfBvBGOlSP892R8oTpcyDRktqxQP7IKt1J0lt8Kpz5SsMiRw
 UvIqhgvD6NYFSaMuT0Yc5k5ej5BHDhTA1eRqAwD8`
-  const privateCert = `-----BEGIN RSA PRIVATE KEY-----
+const privateCert = `-----BEGIN RSA PRIVATE KEY-----
 MIIEowIBAAKCAQEAwJzklS49+k6RstAB86mJRykDMX8388WRIEbdr1Yvqs8nbZkd
 gSCgvOskA2oeOnusOaryNijTQJToeW7P5VwJwb+93K8ie9HAAgvY9AXl4in9OYlK
 H1dU1HqRyIsl2SIpBUW1UVNYcNxL2WvwRfvgAvRJo79eWO4cqXohVjF08JNkfN/x
@@ -46,17 +45,26 @@ ikCvAoGBAJoYO9mO7KQl6fQbRFQ5jKFR43BcINgfz+xFRDKv40ii/dHD3zumNsz3
 DPaZrWtrcsAofYhuvYLEdmGM8TGmsxmJRtrHQTBz2WqXWD7qHRiy3M/Z5jU/9DpB
 3/1jgn2Em4GSuq1qQyZV7IxdfiSm/9swLOxwA2mPLdfh39oQ5YGh
 -----END RSA PRIVATE KEY-----`
-  const config = {
-    entryPoint,
-    issuer,
-    cert,
-    privateCert,
-    skipRequestCompression: true,
-    signPostMessages: true,
-    authnRequestBinding: 'HTTP-POST'
-  }
+const config = {
+  entryPoint,
+  issuer,
+  cert,
+  privateCert,
+  skipRequestCompression: true,
+  signPostMessages: true,
+  authnRequestBinding: 'HTTP-POST',
+  decryptionPvk: privateCert
+}
+
+const strategy = new Strategy(config, (profile, done) => {
+  console.log(profile)
+  done(null, {name: 'bob'})
+})
+
+function samlMiddleware () {
   return passport
-    .use(new Strategy(config, (profile, done) => console.log(profile) && done()))
+    .use(strategy)
     .authenticate('saml', { failureRedirect: '/', failureFlash: true })
 }
-module.exports = samlMiddleware
+exports.samlMiddleware = samlMiddleware
+exports.strategy = strategy
