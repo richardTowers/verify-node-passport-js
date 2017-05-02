@@ -58,7 +58,7 @@ const config = {
 
 const strategy = new Strategy(config, (profile, done) => {
   console.log(profile)
-  done(null, {name: 'bob'})
+  done(null, 'bob')
 })
 
 function samlMiddleware () {
