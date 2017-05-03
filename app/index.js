@@ -1,5 +1,5 @@
 const express = require('express')
-const { samlMiddleware, strategy } = require('./middleware/saml')
+const { samlMiddleware } = require('./middleware/saml')
 const passport = require('passport')
 const bodyParser = require('body-parser')
 

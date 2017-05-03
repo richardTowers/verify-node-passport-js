@@ -17,7 +17,7 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "passport": "^0.3.2",
-    "passport-saml": "^0.15.0"
+    "passport-saml": "git+https://github.com/richardTowers/passport-saml"
   },
   "devDependencies": {
     "mocha": "^3.3.0",
