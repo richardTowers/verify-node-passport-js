@@ -51,8 +51,9 @@ const config = {
   cert,
   privateCert,
   skipRequestCompression: true,
-  signPostMessages: true,
   authnRequestBinding: 'HTTP-POST',
+  signatureAlgorithm: 'sha256',
+  digestAlgorithm: 'sha256',
   decryptionPvk: privateCert
 }
 
